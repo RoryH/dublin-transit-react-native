@@ -1,0 +1,13 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "react-native"
+  ],
+  "rules": {
+    "max-len": [1, 120, 2, { "ignoreComments" : true}]
+  },
+  "env": {
+    "react-native/react-native": true
+  }
+}
