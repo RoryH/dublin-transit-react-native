@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import dublintransit from './dublintransit'
+import dublintransitReducer from './dublintransitReducer'
 
 export default combineReducers({
-  dublintransit
+  dublintransit: dublintransitReducer
 });

@@ -1,35 +1,46 @@
 import React, { Component } from 'react';
 import {
-  View,
   Text,
-  StyleSheet
+  ScrollView
 } from 'react-native';
 import LuasStop from './LuasStop';
 import commonStyles from '../styles/common';
+import {
+  Grid
+} from 'react-native-easy-grid';
+import { connect } from 'react-redux'
+import {
+  getNearestLuasStop
+} from '../actions/DublinTransitActions';
 
 class DublinTransit extends Component {
   componentDidMount() {
-    this.props.getNearestLuasStop();
+    this.props.actions.getNearestLuasStop();
   }
   render () {
     const {
-      loading,
+      actions,
       luasstop
     } = this.props.dublintransit;
 
     return (
-      <View>
-        {loading && <Text style={commonStyles.heading}>Loading...</Text>}
-        <LuasStop stop={luasstop} />
-      </View>
+      <ScrollView>
+        <Grid>
+          <LuasStop stop={luasstop} actions={actions} />
+        </Grid>
+      </ScrollView>
     );
   }
+}
+
+const mapStateToProps = state => {
+  return state
 };
 
-const styles = StyleSheet.create({
-  stationName: {
-    fontSize: 20
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    getNearestLuasStop: () => dispatch(getNearestLuasStop())
   }
 });
 
-export default DublinTransit;
+export default connect(mapStateToProps, mapDispatchToProps)(DublinTransit)

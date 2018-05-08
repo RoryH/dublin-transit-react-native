@@ -10,6 +10,8 @@
     "gps-distance": "0.0.4",
     "react": "16.3.1",
     "react-native": "0.55.3",
+    "react-native-easy-grid": "^0.1.17",
+    "react-native-fontawesome": "^5.7.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0"

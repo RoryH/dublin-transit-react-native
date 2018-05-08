@@ -1,4 +1,4 @@
-package com.dublintransit;
+package com.dublintransitReducer;
 
 import android.app.Application;
 

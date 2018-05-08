@@ -5,7 +5,8 @@
     "react-native"
   ],
   "rules": {
-    "max-len": [1, 120, 2, { "ignoreComments" : true}]
+    "max-len": [1, 120, 2, { "ignoreComments" : true}],
+    "indent": ["error", 2, { "SwitchCase" : 1}]
   },
   "env": {
     "react-native/react-native": true

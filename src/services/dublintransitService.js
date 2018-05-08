@@ -10,6 +10,17 @@ class DublintransitService {
     this.apiRoot = apiRoot;
   }
 
+  fixShadeyLuasJson(json) {
+    json.direction.forEach(dir => {
+      if (!dir.tram) {
+        dir.tram = [];
+      } else if (!Array.isArray(dir.tram) && typeof dir.tram === 'object') {
+        dir.tram = [dir.tram];
+      }
+    });
+    return json;
+  }
+
   getCurrentLocation() {
     return new Promise((resolve, reject) => {
       const prerequisitePromises = [];
@@ -17,7 +28,7 @@ class DublintransitService {
         // need to ask for permission
         prerequisitePromises.push(
           PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.CAMERA,
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
             {
               'title': 'Dublin Transit',
               'message': 'Dublin Transit needs your position to tell you about local transport options.'
@@ -64,9 +75,9 @@ class DublintransitService {
             stop.coordinates.latitude, stop.coordinates.longitude
           );
           if (distanceToThisStop < distanceToClosestStop) {
-              closestStop = stop;
-              distanceToClosestStop = distanceToThisStop;
-            }
+            closestStop = stop;
+            distanceToClosestStop = distanceToThisStop;
+          }
         }
         resolve(closestStop);
       });
@@ -77,7 +88,9 @@ class DublintransitService {
     return new Promise((resolve, reject) => {
       fetch(`${this.apiRoot}/luas/stop/${stopCode}`)
         .then(resp => resp.json())
-        .then(resp => resolve(resp))
+        .then(resp => {
+          resolve(this.fixShadeyLuasJson(resp))
+        })
         .catch(err => reject(err))
     });
   }
@@ -96,4 +109,4 @@ class DublintransitService {
   }
 }
 
-export default new DublintransitService('https://www.roryhaddon.com/api/dublin');
+export default new DublintransitService('https://roryhaddon.com/api/dublin');

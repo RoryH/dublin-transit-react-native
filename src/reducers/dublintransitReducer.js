@@ -1,14 +1,14 @@
-const dublintransit = (state = {}, action) => {
+const dublintransitReducer = (state = {}, action) => {
   switch (action.type) {
     case 'GET_NEAREST_LUAS_STOP_BEGIN':
       return {
         ...state,
-        loading: true
+        luasLoading: true
       };
     case 'GET_NEAREST_LUAS_STOP_SUCCESS':
       return {
         ...state,
-        loading: false,
+        luasLoading: false,
         luasstop: action.stop
       };
     default:
@@ -16,4 +16,4 @@ const dublintransit = (state = {}, action) => {
   }
 };
 
-export default dublintransit;
+export default dublintransitReducer;
