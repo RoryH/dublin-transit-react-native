@@ -4,7 +4,7 @@ import {
   Platform
 } from 'react-native';
 
-class DublintransitService {
+class LuasService {
 
   constructor(apiRoot) {
     this.apiRoot = apiRoot;
@@ -97,16 +97,20 @@ class DublintransitService {
 
   getNearestLuasStopTimes() {
     return new Promise((resolve, reject) => {
-      this.getNearestLuasStop().then((stop) => {
-        this.getLuasStopTimes(stop.shortName).then((times) => {
-          resolve({
-            ...stop,
-            stopTimes: times
-          });
+      this.getNearestLuasStop()
+        .then((stop) =>
+          this.getLuasStopTimes(stop.shortName).then((times) => {
+            resolve({
+              ...stop,
+              stopTimes: times
+            });
+          })
+        )
+        .catch((e) => {
+          reject(e);
         });
-      });
     });
   }
 }
 
-export default new DublintransitService('https://roryhaddon.com/api/dublin');
+export default new LuasService('https://roryhaddon.com/api/dublin');
